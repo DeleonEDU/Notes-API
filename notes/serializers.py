@@ -18,6 +18,7 @@ class NoteSerializer(serializers.ModelSerializer):
             'created_at'
         ]
 
+# Optional validators
     def validate_title(self, value):
         if not value.strip():
             raise serializers.ValidationError('Title cannot be empty')
@@ -28,9 +29,3 @@ class NoteSerializer(serializers.ModelSerializer):
         if not value.strip():
             raise serializers.ValidationError('Content cannot be empty')
         return escape(value.strip())
-    
-
-class NoteUpdateSerializer(NoteSerializer):
-    title = serializers.CharField(required=False)
-    content = serializers.CharField(required=False)
-    

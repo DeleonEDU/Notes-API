@@ -3,9 +3,10 @@ from .models import Note
 from .serializers import NoteSerializer
 from .permissions import IsOwner
 
+
 class NoteListCreateView(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -15,7 +16,6 @@ class NoteListCreateView(generics.ListCreateAPIView):
 
     
 class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Note.objects.all()
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
