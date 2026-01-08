@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import NoteListCreateView, NoteDetailView
-from .models import Note
-from .serializers import NoteSerializer
+
 
 app_name = 'notes-list'
 

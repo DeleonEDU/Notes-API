@@ -1,13 +1,17 @@
 from rest_framework import generics, permissions
+from rest_framework import filters
 from .models import Note
 from .serializers import NoteSerializer
 from .permissions import IsOwner
 
 
+
 class NoteListCreateView(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
     permission_classes = [permissions.IsAuthenticated]
-
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content']
+    
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
